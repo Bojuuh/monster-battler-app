@@ -1,17 +1,8 @@
-// apiFacade.js
-// A "facade" is a single module that centralizes all HTTP calls.
-// Components call facade methods instead of writing fetch logic everywhere.
-// This keeps pages simpler and avoids repeating token/headers/error handling.
-
-const BASE_URL = import.meta.env.VITE_API_URL; // set in .env, e.g. https://.../api
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const LOGIN_ENDPOINT = "/auth/login";
 const REGISTER_ENDPOINT = "/auth/register";
 
-// -------------------- Helpers --------------------
-
-// Converts non-OK HTTP responses into thrown Errors with a readable message.
-// Also safely handles 204 responses and empty JSON bodies.
 async function handleHttpErrors(res) {
   if (!res.ok) {
     // backend often returns {msg: "..."} or {message: "..."}
@@ -24,7 +15,6 @@ async function handleHttpErrors(res) {
     throw err;
   }
 
-  // 204 means "success but no body"
   if (res.status === 204) return null;
 
   // Some endpoints might return empty body even with 200
@@ -32,7 +22,6 @@ async function handleHttpErrors(res) {
   return text ? JSON.parse(text) : null;
 }
 
-// Builds fetch options (method + headers + optional token + optional body)
 function makeOptions(method, addToken, body) {
   const opts = {
     method,
@@ -54,8 +43,6 @@ function makeOptions(method, addToken, body) {
   return opts;
 }
 
-// -------------------- Token helpers --------------------
-
 // Stores token in localStorage and notifies UI (TopBar) that auth changed
 function setToken(token) {
   localStorage.setItem("token", token);
@@ -70,7 +57,6 @@ function loggedIn() {
   return getToken() != null;
 }
 
-// Clears auth state + notifies UI
 function logout() {
   localStorage.removeItem("token");
   localStorage.removeItem("roles");
@@ -78,11 +64,6 @@ function logout() {
   window.dispatchEvent(new Event("auth-change"));
 }
 
-// -------------------- Auth --------------------
-
-// Logs in user.
-// If backend returns token + username, store them.
-// Then UI updates because of "auth-change".
 function login(username, password) {
   const options = makeOptions("POST", false, { username, password });
 
@@ -101,8 +82,6 @@ function login(username, password) {
     });
 }
 
-// Registers user, usually returns token too (depending on backend)
-// You currently navigate to login after register, so token is optional.
 function register(username, password) {
   const options = makeOptions("POST", false, { username, password });
 
@@ -115,9 +94,6 @@ function register(username, password) {
       return res;
     });
 }
-
-// -------------------- Heroes --------------------
-// Heroes endpoints require authentication so addToken = true
 
 function getHeroes() {
   const options = makeOptions("GET", true);
@@ -144,8 +120,6 @@ function deleteHero(id) {
   return fetch(`${BASE_URL}/heroes/${id}`, options).then(handleHttpErrors);
 }
 
-// -------------------- Monsters --------------------
-// Monsters fetch is public in your setup, create/update/delete requires token.
 
 function getMonsters() {
   const options = makeOptions("GET", false);
@@ -177,10 +151,6 @@ function populateMonsters() {
   return fetch(`${BASE_URL}/monsters/populate`, options).then(handleHttpErrors);
 }
 
-// -------------------- Battles --------------------
-// Start battle requires token (authenticated).
-// Getting battle details currently uses addToken=false in your code —
-// that’s fine if your backend allows it public.
 
 function startBattle(heroId, monsterId) {
   const options = makeOptions("POST", true, { heroId, monsterId });
@@ -202,9 +172,6 @@ function getBattleDetails(id) {
   return fetch(`${BASE_URL}/battles/${id}/details`, options).then(handleHttpErrors);
 }
 
-// -------------------- Export facade --------------------
-// This object is what your pages import.
-// Keeps a clean API surface for the UI.
 const facade = {
   makeOptions,
   handleHttpErrors,

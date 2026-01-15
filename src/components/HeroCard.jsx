@@ -1,6 +1,3 @@
-// HeroCard.jsx - FINAL SIMPLE VERSION
-// Safe handling of undefined hero, simple to explain
-
 import styles from "./Card.module.css";
 
 export default function HeroCard({ hero, currentHP, maxHP }) {
@@ -40,14 +37,12 @@ export default function HeroCard({ hero, currentHP, maxHP }) {
     );
   }
 
-  // Extract hero properties with simple defaults
   const name = hero.name || "Hero";
   const level = hero.level || 1;
   const attack = hero.attack || 0;
   const defense = hero.defense || 0;
 
   // Calculate HP percentage for the bar
-  // Use provided values or defaults
   const safeCurrentHP = currentHP !== undefined ? currentHP : hero.hp || 100;
   const safeMaxHP = maxHP !== undefined ? maxHP : hero.hp || 100;
   const hpPercentage = Math.round((safeCurrentHP / safeMaxHP) * 100);

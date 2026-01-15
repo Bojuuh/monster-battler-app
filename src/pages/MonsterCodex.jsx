@@ -1,6 +1,3 @@
-// MonsterCodex.jsx - SIMPLIFIED VERSION
-// Display all monsters with search, filter, and sort
-
 import { useEffect, useState } from "react";
 import facade from "../apiFacade";
 import styles from "./MonsterCodex.module.css";
@@ -29,7 +26,6 @@ export default function MonsterCodex() {
       });
   }, []);
 
-  // Get unique areas from monsters
   function getAreas() {
     const uniqueAreas = new Set(monsters.map((m) => m.area).filter(Boolean));
     return ["ALL", ...Array.from(uniqueAreas).sort()];

@@ -23,8 +23,6 @@ export default function RegisterPage() {
     facade
       .register(username.trim(), password)
       .then(() => {
-        // Your backend returns a token on register,
-        // but you're choosing the "go to login" flow for now:
         navigate("/login");
       })
       .catch((err) => {

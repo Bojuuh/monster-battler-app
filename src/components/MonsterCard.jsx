@@ -1,6 +1,3 @@
-// MonsterCard.jsx - SIMPLIFIED & SAFE VERSION
-// Same structure as HeroCard for consistency
-
 import styles from "./Card.module.css";
 
 export default function MonsterCard({ monster, currentHP, maxHP }) {
@@ -40,14 +37,12 @@ export default function MonsterCard({ monster, currentHP, maxHP }) {
     );
   }
 
-  // Extract monster properties with simple defaults
   const name = monster.name || "Unknown Monster";
   const level = monster.level || 1;
   const attack = monster.attack || 0;
   const defense = monster.defense || 0;
 
   // Calculate HP percentage for the bar
-  // Use provided values or defaults
   const safeCurrentHP = currentHP !== undefined ? currentHP : monster.hp || 80;
   const safeMaxHP = maxHP !== undefined ? maxHP : monster.hp || 80;
   const hpPercentage = Math.round((safeCurrentHP / safeMaxHP) * 100);

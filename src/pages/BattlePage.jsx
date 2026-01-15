@@ -9,57 +9,46 @@ export default function BattlePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Get hero from route state (passed from CreateHero)
   const hero = location.state?.hero;
 
-  // State for battle data
   const [monster, setMonster] = useState(null);
   const [battleLog, setBattleLog] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // State for turn playback
   const [currentTurn, setCurrentTurn] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
 
   // Load battle when component mounts
   useEffect(() => {
-    // Redirect if not logged in
     if (!facade.loggedIn()) {
       navigate("/login");
       return;
     }
 
-    // Redirect if no hero provided
     if (!hero) {
       navigate("/");
       return;
     }
 
-    // Load battle data
     async function loadBattle() {
       try {
         setLoading(true);
         setError("");
 
-        // 1. Get monsters from API
         let monsters = await facade.getMonsters();
 
-        // If no monsters, populate defaults and fetch again
         if (!monsters || monsters.length === 0) {
           await facade.populateMonsters();
           monsters = await facade.getMonsters();
         }
 
-        // 2. Pick random monster
         const randomIndex = Math.floor(Math.random() * monsters.length);
         const selectedMonster = monsters[randomIndex];
         setMonster(selectedMonster);
 
-        // 3. Start battle in backend
         const battleSummary = await facade.startBattle(hero.id, selectedMonster.id);
 
-        // 4. Get battle details with logs
         const battleDetails = await facade.getBattleDetails(battleSummary.id);
         setBattleLog(battleDetails.logs || []);
 
@@ -73,12 +62,11 @@ export default function BattlePage() {
     loadBattle();
   }, [hero, navigate]);
 
-  // Auto-play effect - advances turn every 650ms and stops at end
+  // Auto-play effect
   useEffect(() => {
     // Don't run if auto-play is off
     if (!isAutoPlaying) return;
 
-    // Stop auto-play if we've shown all turns
     if (currentTurn >= battleLog.length) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setIsAutoPlaying(false);
@@ -94,7 +82,6 @@ export default function BattlePage() {
     return () => clearTimeout(timer);
   }, [isAutoPlaying, currentTurn, battleLog.length]);
 
-  // Calculate current HP based on turns shown so far
   function getCurrentHP(characterName, maxHP) {
     let hp = maxHP;
 
@@ -130,10 +117,8 @@ export default function BattlePage() {
     setLoading(true);
     setError("");
 
-    // Start new battle
     async function startNewBattle() {
       try {
-        // 1. Get monsters
         let monsters = await facade.getMonsters();
 
         if (!monsters || monsters.length === 0) {
@@ -141,15 +126,12 @@ export default function BattlePage() {
           monsters = await facade.getMonsters();
         }
 
-        // 2. Pick random monster
         const randomIndex = Math.floor(Math.random() * monsters.length);
         const selectedMonster = monsters[randomIndex];
         setMonster(selectedMonster);
 
-        // 3. Start battle
         const battleSummary = await facade.startBattle(hero.id, selectedMonster.id);
 
-        // 4. Get battle details
         const battleDetails = await facade.getBattleDetails(battleSummary.id);
         setBattleLog(battleDetails.logs || []);
 
@@ -163,9 +145,6 @@ export default function BattlePage() {
     startNewBattle();
   }
 
-  // --- RENDER ---
-
-  // Loading state
   if (loading) {
     return (
       <main className={styles.page}>
@@ -174,7 +153,6 @@ export default function BattlePage() {
     );
   }
 
-  // Error state
   if (error) {
     return (
       <main className={styles.page}>
@@ -192,7 +170,6 @@ export default function BattlePage() {
     );
   }
 
-  // Safety check
   if (!monster || !hero) {
     return null;
   }
@@ -207,7 +184,6 @@ export default function BattlePage() {
   // Main battle UI
   return (
     <main className={styles.page}>
-      {/* Battle Arena - Hero vs Monster */}
       <div className={styles.grid}>
         <HeroCard hero={hero} currentHP={heroCurrentHP} maxHP={hero.hp} />
 
@@ -216,7 +192,6 @@ export default function BattlePage() {
         <MonsterCard monster={monster} currentHP={monsterCurrentHP} maxHP={monster.hp} />
       </div>
 
-      {/* Battle Controls */}
       <section className={styles.actions}>
         <div className={styles.turn}>
           Turn: <strong>{currentTurn}</strong> / {battleLog.length}
@@ -255,7 +230,6 @@ export default function BattlePage() {
         </button>
       </section>
 
-      {/* Battle Log */}
       <section className={styles.log}>
         <h3>
           Battle Log ({currentTurn}/{battleLog.length})

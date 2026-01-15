@@ -1,6 +1,3 @@
-// HomePage.jsx - SIMPLIFIED VERSION
-// Landing page with preview cards
-
 import { useNavigate } from "react-router-dom";
 import styles from "./HomePage.module.css";
 import HeroCard from "../components/HeroCard";

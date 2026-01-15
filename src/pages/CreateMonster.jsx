@@ -1,6 +1,3 @@
-// CreateMonster.jsx - SIMPLIFIED VERSION
-// Create monsters and populate defaults
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import facade from "../apiFacade";
@@ -9,7 +6,6 @@ import styles from "./CreateMonster.module.css";
 export default function CreateMonster() {
   const navigate = useNavigate();
 
-  // Form state
   const [name, setName] = useState("");
   const [level, setLevel] = useState(1);
   const [hp, setHp] = useState(60);
@@ -18,19 +14,16 @@ export default function CreateMonster() {
   const [area, setArea] = useState("Forest");
   const [spawnWeight, setSpawnWeight] = useState(10);
 
-  // UI state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Redirect if not logged in
   useEffect(() => {
     if (!facade.loggedIn()) {
       navigate("/login");
     }
   }, [navigate]);
 
-  // Handle form submission
   function handleSubmit(event) {
     event.preventDefault();
     setError("");
@@ -68,7 +61,6 @@ export default function CreateMonster() {
       });
   }
 
-  // Populate default monsters from backend
   function handlePopulate() {
     setError("");
     setSuccess("");

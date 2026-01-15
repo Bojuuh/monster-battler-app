@@ -1,6 +1,3 @@
-// CreateHero.jsx - SIMPLIFIED VERSION
-// Create a hero and navigate to battle
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./CreateHero.module.css";
@@ -9,31 +6,26 @@ import facade from "../apiFacade";
 export default function CreateHero() {
   const navigate = useNavigate();
 
-  // Form state
   const [name, setName] = useState("");
   const [hp, setHp] = useState(100);
   const [attack, setAttack] = useState(10);
   const [defense, setDefense] = useState(5);
   const [level, setLevel] = useState(1);
 
-  // UI state
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Redirect if not logged in
   useEffect(() => {
     if (!facade.loggedIn()) {
       navigate("/login");
     }
   }, [navigate]);
 
-  // Handle form submission
   function handleSubmit(event) {
     event.preventDefault();
     setError("");
     setLoading(true);
 
-    // Create hero object
     const hero = {
       name: name.trim(),
       level: Number(level),
@@ -43,11 +35,9 @@ export default function CreateHero() {
       xp: 0,
     };
 
-    // Send to backend
     facade
       .createHero(hero)
       .then((created) => {
-        // Navigate to battle with hero data
         navigate("/battle", { state: { hero: created } });
       })
       .catch((err) => {
