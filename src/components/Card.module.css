@@ -1,0 +1,126 @@
+.card {
+  width: 300px;
+  border-radius: 16px;
+  padding: 12px;
+
+  /* Theme-aware card appearance */
+  background: var(--card-bg-gradient);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+
+  /* Frosted effect only really visible in dark mode */
+  backdrop-filter: blur(6px);
+}
+
+
+.headerRow {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 6px 10px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.level {
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  opacity: 0.9;
+}
+
+.name {
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diamond {
+  font-size: 18px;
+  opacity: 0.95;
+}
+
+.art {
+  margin-top: 10px;
+  height: 160px;
+  border-radius: 14px;
+  border: 1px solid var(--card-border);
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.02)
+  );
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+
+.artEmoji {
+  font-size: 66px;
+  filter: drop-shadow(0 12px 18px rgba(0,0,0,0.35));
+}
+
+.statsRow {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.statBox {
+  border-radius: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.statLabel {
+  font-weight: 900;
+  opacity: 0.85;
+  letter-spacing: 0.2px;
+}
+
+.statValue {
+  font-weight: 900;
+}
+
+.hpRow {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.hpLabel {
+  font-weight: 900;
+  opacity: 0.85;
+}
+
+.hpBar {
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--hp-bar-border);
+  background: var(--hp-bar-bg);
+  overflow: hidden;
+}
+
+.hpFill {
+  height: 100%;
+  width: 0%;
+  background: var(--hp-bar-fill);
+  transition: width 0.35s ease;
+}
+
+
+.hpText {
+  font-weight: 900;
+  opacity: 0.9;
+  font-size: 12px;
+}

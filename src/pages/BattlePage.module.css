@@ -1,0 +1,126 @@
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1.2rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.2rem;
+}
+
+.error {
+  color: #ef4444;
+}
+
+.grid {
+  display: flex;
+  justify-content: center;   /* center the whole row */
+  align-items: center;       /* align cards + VS vertically */
+  gap: 100px;                 /* spacing between card / VS / card */
+  flex-wrap: wrap;           /* on small screens: stack nicely */
+  margin-top: 1.2rem;
+}
+
+.vs {
+  font-weight: 900;
+  font-size: 40px;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+}
+
+
+.name {
+  margin: 0 0 0.8rem;
+  font-size: 1.4rem;
+}
+
+.hpLabel {
+  opacity: 0.8;
+}
+
+.hpFill {
+  height: 100%;
+  background: var(--btn);
+}
+
+.hpText {
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.turn {
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+.primaryBtn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: var(--btn);
+  color: var(--btnText);
+  cursor: pointer;
+}
+
+.primaryBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.secondaryBtn {
+  border-radius: 12px;
+  padding: 0.7rem 1rem;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.log {
+  margin-top: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem 1.2rem;
+}
+
+.logList {
+  margin: 0.6rem 0 0;
+  padding-left: 1.2rem;
+  opacity: 0.95;
+}
+
+@media (max-width: 780px) {
+  .grid > :nth-child(1) { order: 1; } /* HeroCard */
+  .grid > :nth-child(3) { order: 3; } /* MonsterCard */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .vs {
+    order: 2;
+    width: 100%;
+    text-align: center;
+  }
+}

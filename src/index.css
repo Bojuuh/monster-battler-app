@@ -1,0 +1,110 @@
+/* Global base */
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Light theme variables */
+  --bg: #ffffff;
+  --text: #111111;
+  --border: #e5e7eb;
+  --card: #f3f4f6;
+  --muted: #6b7280;
+  --btn: #111111;
+  --btnText: #ffffff;
+    /* Card styling – light mode */
+  --card-bg: #ffffff;
+  --card-bg-gradient: linear-gradient(180deg, #ffffff, #f9fafb);
+  --card-border: rgba(17, 24, 39, 0.12);
+  --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    /* HP bar for light mode */
+  --hp-bar-bg: rgba(17, 24, 39, 0.12);
+  --hp-bar-border: rgba(17, 24, 39, 0.22);
+  --hp-bar-fill: linear-gradient(90deg, #22c55e, #16a34a);
+
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark theme */
+:root[data-theme="dark"] {
+  --bg: #0b0f14;
+  --text: #e5e7eb;
+  --border: #1f2937;
+  --card: #111827;
+  --muted: #9ca3af;
+  --btn: #e5e7eb;
+  --btnText: #0b0f14;
+
+    /* Card styling – dark mode (frosted glass) */
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --card-bg-gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  --card-border: rgba(255, 255, 255, 0.14);
+  --card-shadow: 0 12px 34px rgba(0, 0, 0, 0.35);
+
+
+    /* HP bar for dark mode */
+  --hp-bar-bg: rgba(255, 255, 255, 0.08);
+  --hp-bar-border: rgba(255, 255, 255, 0.18);
+  --hp-bar-fill: linear-gradient(90deg, rgba(120, 255, 140, 0.85), rgba(160, 255, 180, 0.9));
+
+}
+
+/* Reset / base layout */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Links */
+a {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Headings */
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+/* Buttons */
+button {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--btn);
+  color: var(--btnText);
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--border);
+  outline-offset: 2px;
+}

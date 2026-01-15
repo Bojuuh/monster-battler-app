@@ -1,0 +1,87 @@
+.container {
+  min-height: calc(100vh - 64px); /* leaves room for topbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.2rem;
+}
+
+.registerForm {
+  width: 100%;
+  max-width: 460px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.4rem;
+}
+
+.registerForm h2 {
+  margin: 0 0 1rem;
+  font-size: 1.6rem;
+}
+
+.error {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+}
+
+.inputGroup {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.inputGroup label {
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.95;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+}
+
+.inputGroup input:focus {
+  border-color: var(--text);
+}
+
+.registerForm button[type="submit"] {
+  width: 100%;
+  margin-top: 0.2rem;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--btn);
+  color: var(--btnText);
+  cursor: pointer;
+}
+
+.registerForm button[type="submit"]:hover {
+  opacity: 0.92;
+}
+
+.loginLink {
+  margin: 1rem 0 0;
+  text-align: center;
+  color: var(--muted);
+}
+
+.loginLink a {
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.loginLink a:hover {
+  opacity: 0.9;
+}
