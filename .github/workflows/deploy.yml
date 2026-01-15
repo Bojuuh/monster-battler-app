@@ -1,0 +1,43 @@
+name: Deploy Frontend to DigitalOcean
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the React project
+        env:
+          VITE_API_URL: https://monsterbattler.mbjerrumj.dk/api
+        run: npm run build
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DO_SSH_KEY }}
+
+      - name: Sync files to DigitalOcean Droplet using rsync
+        run: |
+          SSH_USER="jetty"
+          DO_DROPLET_IP="${{ secrets.DO_DROPLET_IP }}"
+          APP_NAME="monsterbattler-app"
+          REMOTE_PATH="/home/jetty/deployment/site/$APP_NAME/"
+
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            ./dist/ \
+            $SSH_USER@$DO_DROPLET_IP:$REMOTE_PATH
